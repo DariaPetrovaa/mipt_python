@@ -1,6 +1,6 @@
 def my_decorator(function):
-    def the_wrapper(argument):
-        ans=function(argument)
+    def the_wrapper(*args, **kwargs):
+        ans=function(*args, **kwargs)
         if ans==0:
             return 'Нет('
         if ans>10:
