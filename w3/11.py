@@ -1,11 +1,10 @@
-def a():
-    print('continue')
-def b():
-    print('continue')
 def c():
-    int('qwerty')
-    print('continue')
-a()
-b()
-c()
+    raise ValueError('exception')
+    
+def b():
+    c()
 
+def a():
+    b()
+
+a()
