@@ -1,6 +1,8 @@
 def write_array(array, file_name):
-    with open(array,"r") as input, open (file_name, "w") as output:
-        output.write(input.read())
-    pass
+    array = map(lambda x : x + ' ',array)
+    file_name.writelines(array)
 
-write_array('inp.txt', 'output.txt')
+a = ['avf', 'hello']
+with open('output.txt', 'w') as file:
+   write_array(a, file)
+

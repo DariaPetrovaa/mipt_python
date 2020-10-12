@@ -4,7 +4,7 @@ with zipfile.ZipFile('main.zip','r') as zip_ref:
 
 import os
 w=list()
-for root, ders, files in os.walk("given files"):
+for root, dirs, files in os.walk("given files"):
     for file in files:
         if file.endswith(".py"):
             p=os.path.join(root)
