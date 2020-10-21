@@ -21,7 +21,7 @@ class MyMath:
             if not cls._complex: #полиморфизм
                 return ValueError('Было введено отрицательное число')
             else:
-                return (0, sqrt(-x)*2.0j)
+                return (0, sqrt(-x)*1.0j)
 
 
 class MyComplexMath(MyMath): #наследование

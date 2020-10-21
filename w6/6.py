@@ -39,7 +39,10 @@ class Complex:
         return Complex(a1, a2)
 
     def __neg__(self):
-        return Complex(self.real, -self.imaginary)
+        return Complex(-self.real, -self.imaginary)
+
+    def __str__(self):
+        return "({},{})".format(self.real, self.imaginary)
 
     def __abs__(self):
         r = sqrt(self.real**2 + self.imaginary**2)

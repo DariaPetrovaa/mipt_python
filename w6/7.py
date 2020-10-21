@@ -18,39 +18,39 @@ class Vector:
         a1 = self.x + other.x
         a2 = self.y + other.y
         a3 = self.z + other.z
-        ans = a1,a2,a3
-        ans = str(ans)
-        ans = ans[:0] + ans[1:-1]
-        ans = str(ans)
+        ans = self.formatir(a1,a2,a3)
         return Vector(ans)
 
     def __sub__(self, other):
         a1 = self.x - other.x
         a2 = self.y - other.y
         a3 = self.z - other.z
-        ans = a1,a2,a3
-        ans = str(ans)
-        ans = ans[:0] + ans[1:-1]
-        ans = str(ans)
+        ans = self.formatir(a1,a2,a3)
         return Vector(ans)
        
     def __and__(self, other):
         a1 = self.y*other.z - other.y*self.z
         a2 = other.x*self.z - self.x*other.z
         a3 = self.x*other.y - self.y*other.x
+        ans = self.formatir(a1,a2,a3)
+        return Vector(ans) 
+     
+    def formatir(self,a1,a2,a3):
         ans = a1,a2,a3
         ans = str(ans)
         ans = ans[:0] + ans[1:-1]
         ans = str(ans)
-        return Vector(ans) 
-         
+        return ans
+
     def distance(self):
         return sqrt(self.x**2 + self.y**2 + self.z**2)
     
     def __str__(self):
-        a = self.x, self.y, self.z
-        print ('Вектор имеет координаты',a,'.')
-        return '1'
+        a = [self.x, self.y, self.z]
+        s = 'Вектор имеет координаты:',*a
+        s = str(s)
+        s = s[2:26] + s[28:-1] 
+        return s
 
 N=int(input())
 points_list = [[0]*3 for _ in range(N)]
@@ -71,8 +71,8 @@ print('Наиболее дальняя точка имеет координат�
 A = Vector('2,4,5')
 B=Vector('3,56,7')
 C = A - B
-str(C)
+print(str(C))
 C = A + B
-str(C)
+print(str(C))
 C = A & B
-str(C)
+print(str(C))
