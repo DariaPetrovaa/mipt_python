@@ -45,12 +45,8 @@ class Vector:
     def distance(self):
         return sqrt(self.x**2 + self.y**2 + self.z**2)
     
-    def __str__(self):
-        a = [self.x, self.y, self.z]
-        s = 'Вектор имеет координаты:',*a
-        s = str(s)
-        s = s[2:26] + s[28:-1] 
-        return s
+    def __str__(self): 
+        return f"Вектор имеет координаты {self.x, self.y, self.z}"
 
 N=int(input())
 points_list = [[0]*3 for _ in range(N)]
