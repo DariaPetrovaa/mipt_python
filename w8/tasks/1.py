@@ -1,10 +1,5 @@
 def print_map(function, iterable):
-    n = len(iterable)
-    iterator = iter(iterable)
-    k=0
-    while k<n:
-        print(function(next(iterator)))
-        k+=1
+    print(*(map(function,iterable)))
 
 def my_func(b):
     return b**2
