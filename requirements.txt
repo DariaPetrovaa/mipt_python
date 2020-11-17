@@ -9,3 +9,5 @@ numpy == 1.19.2
 coverage == 5.3 
 
 pytest-cov == 2.10.1
+
+queue = 3.3.3
