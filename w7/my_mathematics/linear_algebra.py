@@ -1,15 +1,14 @@
 from math import sqrt
 
-#Координаты вектора вводятся в виде строки "x,y,z"
 class Vector:
 
     def __init__(self, a):
         if type(a) is list:
-            a = "".join(map(str,a))
+            a = ",".join(map(str,a))
         x, y, z = a.split(',')
-        x = int(x)
-        y = int(y)
-        z = int(z)
+        x = float(x)
+        y = float(y)
+        z = float(z)
         self.x = x
         self.y = y
         self.z = z
@@ -47,28 +46,3 @@ class Vector:
     
     def __str__(self): 
         return f"Вектор имеет координаты {self.x, self.y, self.z}"
-
-N=int(input())
-points_list = [[0]*3 for _ in range(N)]
-
-for i in range(N):
-    a = input()
-    a = ', '.join(list(a.split(',')))
-    points_list[i]=a
-ans  = 0
-for i in range(N):
-    b = Vector(points_list[i])
-    dist = b.distance()
-    if dist > ans:
-        ans = dist
-        point = points_list[i]
-print('Наиболее дальняя точка имеет координаты', point, ". Расстояние от этой точки до начала координат", ans, '.')
-
-A = Vector('2,4,5')
-B=Vector('3,56,7')
-C = A - B
-print(str(C))
-C = A + B
-print(str(C))
-C = A & B
-print(str(C))
