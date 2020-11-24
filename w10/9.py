@@ -1,11 +1,15 @@
 import multiprocessing
 import time
 import matplotlib.pyplot as plt
-from multiprocessing import Queue
+from multiprocessing import Queue,freeze_support
 import timeit
+import random
+import numpy as np
+
 
 def multiply(c1, c2):
-    return c1*c2
+    return np.dot(c1,c2)
+
 
 def creator(q,res):
     q.put(res)
@@ -13,53 +17,53 @@ def creator(q,res):
 
 a=0
 
-def consumer(q,counter):
+def consumer(q):
     global a
-    for i in range(counter):
+    while not q.empty():
         res = q.get()
         a+=res
-    return a    
+    return a
+
+
+def cut(arr, number):
+    res = np.array_split(arr, number)
+    for i in res:
+        yield i
+
 
 def run_processes(counter,v1,v2,q):
-    processes = [multiprocessing.Process(target=creator, args = (q,multiply(v1[i],v2[i]))) for i in range(0,counter)]
+    freeze_support()
+    processes = []
+    for new in zip(cut(v1,counter),cut(v2,counter)):
+        processes.append(multiprocessing.Process(target=multiply, args = (new[0],new[1])))
     for process in processes:
         process.start()
+    start_time = time.time()
     for process in processes:
         process.join()
-    consumer(q,counter)
-
-q = Queue() 
-v1 = [1,2,3,5,1,5]
-v2 = [33,4,5,44,7,6]
-n = len(v1)
-start_time = time.time()
-run_processes(n,v1,v2,q)
-finish = time.time() - start_time
-print ('Finished. Scalar production is: {}. Runtime is: {}.'.format(a,round(finish,10)))
-
-def scalar(v1,v2):
-    b=0
-    for i in range(len(v1)):
-        res = v1[i]*v2[i]
-        b+=res
-    return b
-
-number_of_processes = [1,1,1,3,3,3]
-time1=[]
-for k in range(3):
-    start_time = timeit.default_timer()
-    scalar(v1,v2)
-    finish = timeit.default_timer() - start_time
-    time1.append(finish)
-for k in range(3):
-    start_time = time.time()
-    run_processes(n,v1,v2,q)
+    #consumer(q)              if we want to see the results
     finish = time.time() - start_time
-    time1.append(finish)
+    return finish
 
-#print(time1)
+q = Queue()
+number_of_processes = [2,4,6,8]
+v1 = [random.random() * 10**6 for i in range(2*10**6)]
+v2 = [random.random() * 10**6 for i in range(2*10**6)]
 
-plt.plot(time1,number_of_processes)
+time1=[]
+time_=[]
+for n in number_of_processes:
+    for k in range(5):
+        finish = run_processes(n,v1,v2,q)
+       # print ('Finished. Scalar production is: {}. Runtime is: {}. Number of processes is: {}.'.format(a,round(finish,10),n))
+        time1.append(finish)
+        a=0
+    time_.append(sum(time1)/len(time1))
+
+print(time_)
+
+
+plt.plot(number_of_processes,time_)
 plt.grid(True)
 plt.show()
 
