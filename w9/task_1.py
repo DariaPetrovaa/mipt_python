@@ -1,10 +1,15 @@
 class Node:
 
+    def update(self):
+        self.inorder_iter = iter(self.inorderTraversal(self))
+
     def __init__(self, data):
 
         self.left = None
         self.right = None
         self.data = data
+
+        self.update()
 
     def insert(self, data):
 # Compare the new value with the parent node
@@ -22,6 +27,8 @@ class Node:
         else:
             self.data = data
 
+        self.update()
+
     def PrintTree(self):
         if self.left:
             self.left.PrintTree()
@@ -37,6 +44,12 @@ class Node:
             res = res + self.inorderTraversal(root.right)
         return res
 
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        return next(self.inorder_iter)
+
 
 root= Node(12)
 root.insert(6)
@@ -44,5 +57,4 @@ root.insert(14)
 root.insert(3)
 root.insert(16)
 print(*root.inorderTraversal(root))
-
 

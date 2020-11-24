@@ -17,15 +17,12 @@ def the_coroutine():
             try:
                 x = yield
                 data.append(x)
-                average = np.mean(data)
-                disp = np.var(data)
-                n = len(data)
             except PrintDispersion:
-                yield disp
+                yield np.var(data)
             except PrintAverage:
-                yield average
+                yield np.mean(data)
             except PrintNumber:
-                yield n
+                yield len(data)
     finally:
         print("Stop coroutine")
 
