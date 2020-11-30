@@ -1,0 +1,21 @@
+setuptools == 44.0.0
+
+wheel == 0.35.1
+
+pytest == 6.1.1
+
+numpy == 1.19.2
+
+coverage == 5.3 
+
+pytest-cov == 2.10.1
+
+queue = 3.3.3
+
+uvicorn = 0.12.3
+
+fastapi = 0.61.2
+
+aiohttp = 3.7.3
+
+aiofile = 3.3.3
